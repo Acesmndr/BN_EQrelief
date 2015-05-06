@@ -30,28 +30,8 @@ function districtPercentage(){
                             var temp=feature.getProperty("DISTRICT");
                             tempp=feature;
 							//console.log(temp, dist[temp]);
-							if(dist[temp]>"-1"){
+							if(dist[temp]>0){
                                 distList.push(feature.getId());
-                                geocoder.geocode( { 'address': temp}, function(results, status) {
-                                             var marker = new MarkerWithLabel({
-                                                    position: new google.maps.LatLng(t2.features[i].geometry.coordinates[1],t2.features[i].geometry.coordinates[0]),
-                                                    map: map,
-                                                    draggable: true,
-                                                    raiseOnDrag: true,
-                                                    labelContent: "100",
-                                                    labelAnchor: new google.maps.Point(10, 35),
-                                                    labelClass: "labels", // the CSS class for the label
-                                                    labelInBackground: false
-                                                 });
-                                console.log(distList);
-                  
-                                 /*if (status == google.maps.GeocoderStatus.OK) {
-                                                        var marker = new google.maps.Marker({
-                                                        map: map,
-                                                        position: results[0].geometry.location
-                                                        });
-                                    }*/
-                                });  
                                 clr="Blue"
                             }else{
                                 clr="White";
@@ -69,7 +49,7 @@ function districtPercentage(){
 		}).done(function(){
         console.log("This is",distList);
         $.ajax({
-        	url: "assets/nepal-district-headquarters.geojson",
+        	url: "assets/DistrictHQ_Listbyaces.geojson",
     		dataType: 'json',
         	type: 'GET',
         	success: function (data) {
@@ -80,7 +60,7 @@ function districtPercentage(){
                                                         map: map,
                                                         draggable: true,
                                                         raiseOnDrag: true,
-                                                        labelContent: a[i][1],
+                                                        labelContent: t1.features[distList[i]].properties["DISTRICT"]+" "+a[i][1],
                                                         labelAnchor: new google.maps.Point(10, 35),
                                                         labelClass: "labels", // the CSS class for the label
                                                         labelInBackground: false

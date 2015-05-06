@@ -4,7 +4,7 @@ function initialize() {
 	  map = new google.maps.Map(document.getElementById('map-canvas'), {
 	  	mapTypeId: google.maps.MapTypeId.ROADMAP,	
 	  	draggable: false,
-	  	zoom: 8,
+	  	zoom: 7,
 	  	scrollwheel: false,
 	  	disableDoubleClickZoom: true,
 	  	disableDefaultUI: true,	
