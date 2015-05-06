@@ -1,0 +1,89 @@
+<html>
+<head>
+<script src="js/vendor/jquery.min.js"></script>
+<script src="js/vendor/highcharts.js"></script>
+</head>
+<body>
+<div id="container"></div>
+<script>
+var dat;
+$(function () {
+    $.ajax({
+        	url: "assets/TotalAnalytics.json",
+		    dataType: 'json',
+        	type: 'GET',
+        	success: function (data) {
+                dat=data;    
+          
+    $('#container').highcharts({
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: 'Relief Distribution'
+        },
+        subtitle: {
+            text: 'Source: BibekSheel Nepali'
+        },
+        xAxis: {
+            categories: dat["District"],
+            title: {
+                text: null
+            }
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: 'Number of People',
+                align: 'high'
+            },
+            labels: {
+                overflow: 'justify'
+            }
+        },
+        tooltip: {
+            valueSuffix: ' Number'
+        },
+        plotOptions: {
+            bar: {
+                dataLabels: {
+                    enabled: true
+                }
+            }
+        },
+        legend: {
+            layout: 'vertical',
+            align: 'right',
+            verticalAlign: 'top',
+            x: -40,
+            y: 100,
+            floating: true,
+            borderWidth: 1,
+            backgroundColor: ((Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'),
+            shadow: true
+        },
+        credits: {
+            enabled: false
+        },
+        series: [{
+            name: "BN Non-Medical Volunteers",
+            data: dat["BN Non-Medical Volunteers"]
+        }, {
+            name: "Medical Volunteers",
+            data: dat["Medical Volunteers"]
+        }, {
+            name: "Partner Volunteers",
+            data: dat["Partner Volunteers"]
+        }]
+    });
+
+  }
+        });
+
+
+
+});
+
+</script>
+</body>
+</html>

@@ -1,0 +1,82 @@
+<html>
+<head>
+<script src="js/vendor/jquery.min.js"></script>
+<script src="js/vendor/highcharts.js"></script>
+</head>
+<body>
+<div id="container"></div>
+<script>
+var dat;
+var distData={};
+$(function () {
+    $.ajax({
+        	url: "assets/TotalAnalytics.json",
+		    dataType: 'json',
+        	type: 'GET',
+        	success: function (data) {
+                dat=data;    
+                /*for(i=0;i<dat["District"].length;i++){
+                        
+                        }*/
+   $('#container').highcharts({
+
+        chart: {
+            type: 'column'
+        },
+
+        title: {
+            text: 'Volunteers'
+        },
+
+        xAxis: {
+            categories: dat["District"]
+        },
+
+        yAxis: {
+            allowDecimals: false,
+            min: 0,
+            title: {
+                text: 'Number of Volunteers'
+            }
+        },
+
+        tooltip: {
+            formatter: function () {
+                return '<b>' + this.x + '</b><br/>' +
+                    this.series.name + ': ' + this.y + '<br/>' +
+                    'Total: ' + this.point.stackTotal;
+            }
+        },
+
+        plotOptions: {
+            column: {
+                stacking: 'normal'
+            }
+        },
+
+        series: [{
+            name: 'Non-Medical',
+            data: dat["BN Non-Medical Volunteers"],
+            stack: 'volunteer'
+        }, {
+            name: 'Medical',
+            data: dat["Medical Volunteers"],
+            stack: 'volunteer'
+        }, {
+            name: 'Partner',
+            data: dat["Partner Volunteers"],
+            stack: 'volunteer'
+        }]
+    });
+
+
+  }
+        });
+
+
+
+});
+
+</script>
+</body>
+</html>

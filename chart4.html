@@ -1,0 +1,117 @@
+<html>
+<head>
+<script src="js/vendor/jquery.min.js"></script>
+<script src="js/vendor/highcharts.js"></script>
+</head>
+<body>
+<div id="container"></div>
+<script>
+var dat;
+var distData={};
+$(function () {
+    $.ajax({
+        	url: "assets/TotalAnalytics.json",
+		    dataType: 'json',
+        	type: 'GET',
+        	success: function (data) {
+                dat=data;    
+                /*for(i=0;i<dat["District"].length;i++){
+                        
+                        }*/
+   $('#container').highcharts({
+
+        chart: {
+            type: 'column'
+        },
+
+        title: {
+            text: 'Volunteers and Relief Material'
+        },
+
+        xAxis: {
+            categories: dat["District"]
+        },
+
+        yAxis: {
+            allowDecimals: false,
+            min: 0,
+            title: {
+                text: 'Number of Volunteers and Relief Material'
+            }
+        },
+
+        tooltip: {
+            formatter: function () {
+                return '<b>' + this.x + '</b><br/>' +
+                    this.series.name + ': ' + this.y + '<br/>' +
+                    'Total: ' + this.point.stackTotal;
+            }
+        },
+
+        plotOptions: {
+            column: {
+                stacking: 'normal'
+            }
+        },
+
+        series: [
+        {
+            name: 'Non-Medical Volunteers',
+            data: dat["BN Non-Medical Volunteers"],
+            stack: 'volunteer'
+        }, {
+            name: 'Medical Volunteers',
+            data: dat["Medical Volunteers"],
+            stack: 'volunteer'
+        }, {
+            name: 'Partner Volunteers',
+            data: dat["Partner Volunteers"],
+            stack: 'volunteer'
+        },        
+        {
+            name: 'Tents',
+            data: dat["Tents"],
+            stack: 'Relief'
+        }, {
+            name: "Noodles (in Cartons)",
+            data: dat["Noodles (in Cartons)"],
+            stack: 'Relief'
+        }, {
+            name: "Biscuits (in Cartons)",
+            data: dat["Biscuits (in Cartons)"],
+            stack: 'Relief'
+        },{
+           name: "Rice (in Sacks)",
+           data: dat["Rice (in Sacks)"],
+           stack: 'Relief'
+        },{
+           name: "Beaten Rice (in Sacks)",
+           data: dat["Beaten Rice (in Sacks)"],
+           stack: 'Relief'
+        },{
+           name: "Water (in Cartons)",
+           data: dat["Water (in Cartons)"],
+           stack: 'Relief'
+        },{
+           name: "Clothes (in Sacks)",
+           data: dat["Clothes (in Sacks)"],
+           stack: 'Relief'
+        },{
+           name: "Others",
+           data: dat["Others"],
+           stack: 'Relief'
+        }                
+    ]
+    });
+
+
+  }
+        });
+
+
+
+});
+
+</script>
+</body>
+</html>
