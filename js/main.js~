@@ -1,4 +1,3 @@
-var distNo=[49,52,51,41,54,21,29,36,31,37,53,45,27,48] // district served
 var flag=0,a
 var map,t1,t2;
 function initialize() {
